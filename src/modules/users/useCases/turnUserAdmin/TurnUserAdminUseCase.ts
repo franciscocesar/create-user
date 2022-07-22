@@ -9,7 +9,15 @@ class TurnUserAdminUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
   execute({ user_id }: IRequest): User {
-    // Complete aqui
+      const userUpdate = this.usersRepository.findById(user_id)
+
+      if(!userUpdate){
+        throw Error ('Usuário não existe')
+      }
+
+      this.usersRepository.turnAdmin(userUpdate)
+
+      return userUpdate
   }
 }
 
